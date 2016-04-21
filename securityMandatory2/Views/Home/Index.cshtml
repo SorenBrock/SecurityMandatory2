@@ -1,0 +1,59 @@
+﻿@model securityMandatory2.Models.User
+@{
+    ViewBag.Title = "Security - Home";
+}
+<form class="form-horizontal">
+    <div class="container">
+        <h1>@TempData["message"]</h1>
+        <div class="well">
+            <div class="row">
+                <h4 class="col-md-1">Status: </h4>
+                <div class="col-md-8">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <h4>@(Model != null ? Model.Username : "Unknown") er logget ind </h4>
+                    }
+                    else
+                    {
+                        <h4>ikke logget ind</h4>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Info</h2>
+                <p>
+                    Dette site er lavet af gruppe 1 og omhandler mandatoryopgave 2 for security / PBA webudvikling:
+                </p>
+                <h4>Gruppen består af:</h4>
+                Kathrine Nielsen,<br />
+                Simon Eldevig,<br />
+                Søren Brock,<br />
+                Thomas Wöbbe
+            </div>
+            <div class="col-md-4">
+                <h2>Opret bruger</h2>
+                <p>
+                    I menuen kan du vælge "opret bruger". Det er her, du kan oprette en bruger, som derefter kan logges ind med.
+                </p><p>I oprettelsen skal brugernavn være mindst 4 bogstaver langt og password mindst 8. Hvis brugernavn er optaget må der indtastes nyt. Ved korrekt brugerindtast gemmes brugeren i en database, hvor passwordet krypteres med SHA2 based hashing function.
+                <p>@Html.ActionLink("Opret bruger", "CreateUser", "Home", new { @class = "btn btn-default" })</p>
+            </div>
+            <div class="col-md-4">
+                <h2>Log ind / log af  </h2>
+                <p>I menuen kan du logge af eller ind - helt afhængigt af, om du er logget ind.</p>
+                <p>Ved korrekt login gemmes dine login-informationer i en krypteret cookie. Ved log af slettes cookie.</p>
+                <p>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Log ind", "Login", "Home", new { @class = "btn btn-default" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Log af", "LogOut", "Home", new { @class = "btn btn-default" })
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+</form>

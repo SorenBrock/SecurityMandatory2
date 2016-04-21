@@ -1,0 +1,51 @@
+﻿@model securityMandatory2.Models.LoginViewModel
+@{
+    ViewBag.Title = "Security - Opret bruger";
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    <h1>Opret bruger</h1>
+    <div>
+        <div class="form-group">
+            @using (Html.BeginForm("CreateUser", "Home"))
+            {
+
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.Username, new
+               {
+                   @class = "form-control",
+                   placeholder = @Html.DisplayNameFor(m => m.Username)
+               })
+                    @Html.ValidationMessageFor(model => model.Username)
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(x => x.Password, new
+               {
+                   @class = "form-control",
+                   value = Model.Password,
+                   placeholder = @Html.DisplayNameFor(m => m.Password)
+               })
+                    @Html.ValidationMessageFor(model => model.Password)
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(x => x.ConfirmPassword, new
+               {
+                   @class = "form-control",
+                   value = Model.ConfirmPassword,
+                   placeholder = @Html.DisplayNameFor(m => m.ConfirmPassword)
+               })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                </div>
+                <p class="error"> @Html.ValidationMessage("Error")</p>
+                <div>
+                    <button type="submit" class="btn btn-primary input-medium pullleft">Opret</button>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>
